@@ -1,0 +1,38 @@
+<template>
+  <div>
+    <select v-model="selected">
+      <option v-for="option in options" v-bind:key="option.key">
+        {{ option.name }}
+      </option>
+    </select>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+import { CURRENCIES } from "@/utils";
+
+interface SelectOption {
+  key: string;
+  name: string;
+}
+
+export default Vue.extend({
+  name: "CurrencySelect",
+  data() {
+    return {
+      selected: "Euro",
+    };
+  },
+  computed: {
+    options(): SelectOption[] {
+      const toSelectOption = (entry: string[]): SelectOption => {
+        return { key: entry[0], name: entry[1] };
+      };
+      return Object.entries(CURRENCIES).map(toSelectOption);
+    },
+  },
+});
+</script>
+
+<style scoped lang="scss"></style>
