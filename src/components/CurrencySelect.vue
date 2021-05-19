@@ -19,9 +19,15 @@ interface SelectOption {
 
 export default Vue.extend({
   name: "CurrencySelect",
+  props: {
+    initial: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
-      selected: "Euro",
+      selected: this.initial ? this.initial : CURRENCIES.EUR,
     };
   },
   computed: {
