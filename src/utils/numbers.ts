@@ -1,5 +1,11 @@
-export const convertAmount = (amount: number, rate: number): number => {
+export const convertFromEuro = (amount: number, rate: number): number => {
   const converted = amount * rate;
+  return roundTo(converted, 2);
+};
+
+export const convertToEuro = (amount: number, rate: number): number => {
+  if (amount === 0) return amount;
+  const converted = amount / rate;
   return roundTo(converted, 2);
 };
 
