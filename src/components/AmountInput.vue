@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="number" v-model="value" @keyup="push" @change="push" />
+    <input type="number" :value="amount" @keyup="push" @change="push" />
   </div>
 </template>
 
@@ -10,19 +10,24 @@ import Vue from "vue";
 export default Vue.extend({
   name: "AmountInput",
   props: {
-    initial: {
-      type: Number,
-      required: false,
+    isSource: {
+      type: Boolean,
+      required: true,
     },
   },
-  data() {
-    return {
-      value: this.initial,
-    };
+  computed: {
+    amount() {
+      const getterName = this.isSource ? "getSourceAmount" : "getTargetAmount";
+      return this.$store.getters[getterName];
+    },
   },
   methods: {
-    push() {
-      this.$emit("change", this.value);
+    push(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const action = this.isSource
+        ? "updateSourceAmount"
+        : "updateTargetAmount";
+      this.$store.commit(action, target.value);
     },
   },
 });

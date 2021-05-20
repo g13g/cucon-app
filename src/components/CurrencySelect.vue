@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select v-model="selected" @change="push($event)">
+    <select :value="currency" @change="push">
       <option v-for="option in options" v-bind:key="option.key">
         {{ option.name }}
       </option>
@@ -20,15 +20,10 @@ interface SelectOption {
 export default Vue.extend({
   name: "CurrencySelect",
   props: {
-    initial: {
-      type: String,
-      required: false,
+    isSource: {
+      type: Boolean,
+      required: true,
     },
-  },
-  data() {
-    return {
-      selected: this.initial ? this.initial : CURRENCIES.EUR,
-    };
   },
   computed: {
     options(): SelectOption[] {
@@ -37,10 +32,20 @@ export default Vue.extend({
       };
       return Object.entries(CURRENCIES).map(toSelectOption);
     },
+    currency() {
+      const getterName = this.isSource
+        ? "getSourceCurrency"
+        : "getTargetCurrency";
+      return this.$store.getters[getterName];
+    },
   },
   methods: {
-    push() {
-      this.$emit("change", this.selected);
+    push(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const action = this.isSource
+        ? "updateSourceCurrency"
+        : "updateTargetCurrency";
+      this.$store.commit(action, target.value);
     },
   },
 });
