@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <!-- SOURCE -->
-    <input type="number" />
+    <AmountInput :initial="1" />
     <CurrencySelect />
 
     <!-- TARGET -->
-    <input type="number" />
+    <AmountInput :initial="1" />
     <CurrencySelect :initial="initialTarget"></CurrencySelect>
   </div>
 </template>
@@ -13,11 +13,13 @@
 <script lang="ts">
 import Vue from "vue";
 import { CURRENCIES } from "@/utils";
+import AmountInput from "./components/AmountInput.vue";
 import CurrencySelect from "./components/CurrencySelect.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
+    AmountInput,
     CurrencySelect,
   },
   data() {
