@@ -1,4 +1,5 @@
-export const CURRENCIES = {
+// Maps from currency code to name
+export const CURRENCIES: { [key: string]: string } = {
   EUR: "Euro",
   GBP: "British Pound",
   HKD: "Hong Kong Dollar",
@@ -33,3 +34,11 @@ export const CURRENCIES = {
   HUF: "Hungarian Forint",
   AUD: "Australian dollar",
 };
+
+// Maps from name to currency code
+export const CURRENCY_TO_CODE: { [key: string]: string } = {};
+Object.entries(CURRENCIES).forEach((entry) => {
+  const ticker = entry[0];
+  const name = entry[1];
+  CURRENCY_TO_CODE[name] = ticker;
+});
