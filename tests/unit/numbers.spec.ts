@@ -1,7 +1,7 @@
 import { roundTo, convertAmount } from "@/utils/numbers";
 import MOCK_API_RESPONSE from "@/data/example-api-response.json";
-import { APIResponse } from "@/models/ApiResponse";
-import { Rates } from "@/models/Rates";
+import APIResponse from "@/models/ApiResponse";
+import Rates from "@/models/Rates";
 
 const data: APIResponse = MOCK_API_RESPONSE;
 const rates: Rates = data.rates;
