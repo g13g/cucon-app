@@ -45,7 +45,7 @@ export default Vue.extend({
       const action = this.isSource
         ? "updateSourceCurrency"
         : "updateTargetCurrency";
-      this.$store.commit(action, target.value);
+      this.$store.dispatch(action, target.value);
     },
   },
 });

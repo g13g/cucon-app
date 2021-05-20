@@ -23,6 +23,9 @@ export default Vue.extend({
     AmountInput,
     CurrencySelect,
   },
+  created() {
+    this.$store.dispatch("fetchRates");
+  },
 });
 </script>
 
