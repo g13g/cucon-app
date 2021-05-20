@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <!-- SOURCE -->
-    <AmountInput :initial="1" />
-    <CurrencySelect />
+    <div class="container">
+      <AmountInput :initial="1" @change="handleSourceAmountChange" />
+      <CurrencySelect
+        :initial="source.currency"
+        @change="handleSourceCurrencyChange"
+      />
+    </div>
 
-    <!-- TARGET -->
-    <AmountInput :initial="1" />
-    <CurrencySelect :initial="initialTarget"></CurrencySelect>
+    <div class="container">
+      <AmountInput :initial="1" />
+      <CurrencySelect :initial="target.currency" />
+    </div>
   </div>
 </template>
 
@@ -24,19 +29,30 @@ export default Vue.extend({
   },
   data() {
     return {
-      initialTarget: CURRENCIES.USD,
+      source: {
+        amount: 1,
+        currency: CURRENCIES.EUR,
+      },
+      target: {
+        amount: 1, // TODO: Set initial amount based on conversion
+        currency: CURRENCIES.USD,
+      },
     };
+  },
+  methods: {
+    handleSourceAmountChange(value: number) {
+      console.log(value);
+    },
+    handleSourceCurrencyChange(currencyCode: string) {
+      console.log(currencyCode);
+    },
   },
 });
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  display: flex;
+  padding: 1em;
 }
 </style>

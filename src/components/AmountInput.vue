@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="number" v-model="value" />
+    <input type="number" v-model="value" @keyup="push" @change="push" />
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default Vue.extend({
     return {
       value: this.initial,
     };
+  },
+  methods: {
+    push() {
+      this.$emit("change", this.value);
+    },
   },
 });
 </script>

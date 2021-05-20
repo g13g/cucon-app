@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select v-model="selected">
+    <select v-model="selected" @change="push($event)">
       <option v-for="option in options" v-bind:key="option.key">
         {{ option.name }}
       </option>
@@ -36,6 +36,11 @@ export default Vue.extend({
         return { key: entry[0], name: entry[1] };
       };
       return Object.entries(CURRENCIES).map(toSelectOption);
+    },
+  },
+  methods: {
+    push() {
+      this.$emit("change", this.selected);
     },
   },
 });
