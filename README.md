@@ -3,11 +3,10 @@
 A tiny widget that can perform currency conversions.
 
 Features:
+- Ability to select source and target currencies
+- Ability to input the source or target amount (bidirectional conversion)
 
-- select the source and target currencies
-- input the source amount
-- convert Euro amounts to foreign currency amounts
-- convert foreign currency amounts to Euro amounts
+Conversion rates are retrieved from this [Exchange Rate API](https://exchangeratesapi.io)
 
 Demo available here: [https://cucon.netlify.app](https://cucon.netlify.app)
 
