@@ -12,6 +12,7 @@ test("convert EURO amount into another currency", () => {
   expect(convertFromEuro(100, rates.USD)).toBe(122.2);
   expect(convertFromEuro(5.52, rates.USD)).toBe(6.75);
   expect(convertFromEuro(-12, rates.USD)).toBe(-14.66);
+  expect(convertFromEuro(15000000, rates.USD)).toBe(18330120);
 });
 
 test("convert other currency amount into EURO amount", () => {
@@ -32,3 +33,4 @@ test("round numbers", () => {
   expect(roundTo(-1.015, 2)).toBe(-1.02);
   expect(roundTo(130000000.01572123, 2)).toBe(130000000.02);
 });
+15000000 * 1.222008

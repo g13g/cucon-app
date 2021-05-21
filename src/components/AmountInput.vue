@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <input type="number" :value="amount" @keyup="push" @change="push" />
+  <div class="self">
+    <div class="input-wrapper">
+      <input type="number" :value="amount" @keyup="push" @change="push" />
+    </div>
   </div>
 </template>
 
@@ -33,4 +35,25 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.self {
+  .input-wrapper {
+    border-radius: 6px;
+    border: 1px solid #dfe1e5;
+    margin-right: 1em;
+    overflow: hidden;
+  }
+  input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 600;
+    width: 150px;
+    line-height: 2rem;
+    padding-left: 0.5rem;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+</style>
