@@ -18,9 +18,9 @@ interface InitialState {
   rates: Rates;
 }
 
-// TODO: Use relay service for this API call
-const KEY = ""; // ADD API KEY HERE
-const API_URI = "http://api.exchangeratesapi.io/v1/latest?access_key=" + KEY;
+// This is a relay API call via Runkit in order to hide my API key
+// Runkit Notebook: https://runkit.com/g13g/60a73eb28e5c9b001a740520
+const API_URI = `https://untitled-wzgxxrggfyya.runkit.sh/`;
 
 // Function, so it's easy to reset the state
 const initialState = (): InitialState => ({
@@ -29,7 +29,7 @@ const initialState = (): InitialState => ({
     currency: CURRENCIES.EUR,
   },
   target: {
-    amount: 1, // TODO Compute based on rate
+    amount: 1,
     currency: CURRENCIES.USD,
   },
   rates: {},
@@ -55,7 +55,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // TODO: Consider renaming to something to reflect all steps
     updateSourceAmount(state, newAmount: number) {
       state.commit("setSourceAmount", newAmount);
 
@@ -70,7 +69,7 @@ export default new Vuex.Store({
     updateTargetAmount(state, newAmount: number) {
       state.commit("setTargetAmount", newAmount);
 
-      // TODO: Update SOURCE amount based on conversation rate
+      // Update SOURCE amount based on conversation rate
       const targetCurrency = state.state.target.currency;
       const currencyCode = CURRENCY_TO_CODE[targetCurrency];
       const rate = state.state.rates[currencyCode];
@@ -79,7 +78,6 @@ export default new Vuex.Store({
     },
     updateSourceCurrency(state, newCurrency: string) {
       state.commit("setSourceCurrency", newCurrency);
-      // TODO: Update TARGET amount based on conversation rate
     },
     updateTargetCurrency(state, newCurrency: string) {
       state.commit("setTargetCurrency", newCurrency);
