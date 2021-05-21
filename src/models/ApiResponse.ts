@@ -1,6 +1,6 @@
-import Rates from "./Rates";
+import { Rates } from "./Rates";
 
-export default interface APIResponse {
+export interface APIResponse {
   success: boolean;
   timestamp: number;
   base: string;

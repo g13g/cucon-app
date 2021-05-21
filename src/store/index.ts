@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import { CURRENCIES, CURRENCY_TO_CODE } from "@/utils";
-import Rates from "@/models/Rates";
+import { Rates } from "@/models";
 import { convertFromEuro, convertToEuro } from "@/utils";
 
 Vue.use(Vuex);

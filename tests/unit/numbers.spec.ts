@@ -1,7 +1,6 @@
 import { roundTo, convertFromEuro, convertToEuro } from "@/utils";
 import MOCK_API_RESPONSE from "@/data/example-api-response.json";
-import APIResponse from "@/models/ApiResponse";
-import Rates from "@/models/Rates";
+import { APIResponse, Rates } from "@/models";
 
 const data: APIResponse = MOCK_API_RESPONSE;
 const rates: Rates = data.rates;
@@ -33,4 +32,3 @@ test("round numbers", () => {
   expect(roundTo(-1.015, 2)).toBe(-1.02);
   expect(roundTo(130000000.01572123, 2)).toBe(130000000.02);
 });
-15000000 * 1.222008

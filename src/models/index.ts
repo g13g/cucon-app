@@ -1,2 +1,2 @@
 export * from "./Rates";
-export * from "./APIResponse";
+export * from "./ApiResponse";

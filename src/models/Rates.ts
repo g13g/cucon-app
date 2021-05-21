@@ -1,3 +1,3 @@
-export default interface Rates {
+export interface Rates {
   [key: string]: number;
 }
