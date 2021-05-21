@@ -1,16 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import { CURRENCIES, CURRENCY_TO_CODE } from "@/utils";
-import { Rates } from "@/models";
-import { convertFromEuro, convertToEuro } from "@/utils";
+import { CURRENCIES } from "@/utils";
+import { Rates, InputPair } from "@/models";
+import { convertFromInputs } from "@/utils";
 
 Vue.use(Vuex);
-
-interface InputPair {
-  amount: number;
-  currency: string;
-}
 
 interface InitialState {
   source: InputPair;
@@ -58,36 +53,46 @@ export default new Vuex.Store({
     updateSourceAmount(state, newAmount: number) {
       state.commit("setSourceAmount", newAmount);
 
-      // Update TARGET amount based on conversation rate
-      const sourceAmount = state.state.source.amount;
-      const targetCurrency = state.state.target.currency;
-      const currencyCode = CURRENCY_TO_CODE[targetCurrency];
-      const rate = state.state.rates[currencyCode];
-      const targetAmount = convertFromEuro(sourceAmount, rate);
-      state.commit("setTargetAmount", targetAmount);
+      // Update TARGET amount accordingly
+      const newTargetAmount = convertFromInputs(
+        state.state.source,
+        state.state.target.currency,
+        state.state.rates
+      );
+      state.commit("setTargetAmount", newTargetAmount);
+    },
+    updateSourceCurrency(state, newCurrency: string) {
+      state.commit("setSourceCurrency", newCurrency);
+
+      // Update TARGET amount accordingly
+      const newTargetAmount = convertFromInputs(
+        state.state.source,
+        state.state.target.currency,
+        state.state.rates
+      );
+      state.commit("setTargetAmount", newTargetAmount);
     },
     updateTargetAmount(state, newAmount: number) {
       state.commit("setTargetAmount", newAmount);
 
-      // Update SOURCE amount based on conversation rate
-      const targetCurrency = state.state.target.currency;
-      const currencyCode = CURRENCY_TO_CODE[targetCurrency];
-      const rate = state.state.rates[currencyCode];
-      const newSourceAmount = convertToEuro(newAmount, rate);
+      // Update SOURCE amount accordingly
+      const newSourceAmount = convertFromInputs(
+        state.state.target,
+        state.state.source.currency,
+        state.state.rates
+      );
       state.commit("setSourceAmount", newSourceAmount);
-    },
-    updateSourceCurrency(state, newCurrency: string) {
-      state.commit("setSourceCurrency", newCurrency);
     },
     updateTargetCurrency(state, newCurrency: string) {
       state.commit("setTargetCurrency", newCurrency);
 
-      // Update TARGET amount based on conversation rate
-      const sourceAmount = state.state.source.amount;
-      const currencyCode = CURRENCY_TO_CODE[newCurrency];
-      const rate = state.state.rates[currencyCode];
-      const targetAmount = convertFromEuro(sourceAmount, rate);
-      state.commit("setTargetAmount", targetAmount);
+      // Update TARGET amount accordingly
+      const newTargetAmount = convertFromInputs(
+        state.state.source,
+        state.state.target.currency,
+        state.state.rates
+      );
+      state.commit("setTargetAmount", newTargetAmount);
     },
     async fetchRates(state) {
       const res = await axios.get(API_URI);

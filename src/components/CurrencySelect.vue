@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { CURRENCIES, CURRENCY_TO_CODE } from "@/utils";
+import { CURRENCIES } from "@/utils";
 
 interface SelectOption {
   key: string;
@@ -30,18 +30,10 @@ export default Vue.extend({
   },
   computed: {
     options(): SelectOption[] {
-      if (this.isSource) {
-        // Provide only EURO
-        return [
-          { key: CURRENCY_TO_CODE[CURRENCIES.EUR], name: CURRENCIES.EUR },
-        ];
-      } else {
-        // Provide all the currencies
-        const toSelectOption = (entry: string[]): SelectOption => {
-          return { key: entry[0], name: entry[1] };
-        };
-        return Object.entries(CURRENCIES).map(toSelectOption);
-      }
+      const toSelectOption = (entry: string[]): SelectOption => {
+        return { key: entry[0], name: entry[1] };
+      };
+      return Object.entries(CURRENCIES).map(toSelectOption);
     },
     currency() {
       const getterName = this.isSource
